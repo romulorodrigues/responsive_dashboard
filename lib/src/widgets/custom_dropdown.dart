@@ -7,6 +7,8 @@ class CustomDropdown extends StatefulWidget {
   final double maxHeight;
   final int? badgeCount;
   final Color? hoverBackgroundColor;
+  final BoxDecoration? buttonDecoration;
+  final TextStyle? badgeTextStyle;
 
   const CustomDropdown({
     super.key,
@@ -16,6 +18,8 @@ class CustomDropdown extends StatefulWidget {
     this.maxHeight = 300,
     this.badgeCount,
     this.hoverBackgroundColor,
+    this.buttonDecoration,
+    this.badgeTextStyle,
   });
 
   @override
@@ -113,11 +117,15 @@ class _CustomDropdownState extends State<CustomDropdown> {
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: _isHovered
-                ? BoxDecoration(
-                    color: widget.hoverBackgroundColor ?? Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                  )
-                : null,
+                ? widget.hoverBackgroundColor != null
+                    ? widget.buttonDecoration
+                        ?.copyWith(color: widget.hoverBackgroundColor)
+                    : (widget.buttonDecoration ??
+                        BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(8),
+                        ))
+                : widget.buttonDecoration,
             child: Stack(
               clipBehavior: Clip.none,
               children: [
@@ -140,7 +148,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
                       ),
                       child: Text(
                         '${widget.badgeCount}',
-                        style:
+                        style: widget.badgeTextStyle ??
                             const TextStyle(color: Colors.white, fontSize: 10),
                       ),
                     ),
