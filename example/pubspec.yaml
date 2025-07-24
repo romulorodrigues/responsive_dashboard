@@ -1,0 +1,19 @@
+name: example
+description: Example app for testing responsive_dashboard
+publish_to: "none" # Isso impede o Flutter de tentar publicar o exemplo no pub.dev
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  responsive_dashboard:
+    path: ../
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
