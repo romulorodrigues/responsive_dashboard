@@ -83,7 +83,6 @@ class MyApp extends StatelessWidget {
             ),
           ],
         ),
-        child: const Center(child: Text('Conteúdo do Dashboard')),
         menuItems: [
           MenuItemModel(
             icon: Icons.dashboard,
@@ -206,6 +205,77 @@ class MyApp extends StatelessWidget {
             onTap: () => debugPrint('Logout'),
           ),
         ],
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final isWide = constraints.maxWidth >= 600;
+              return Wrap(
+                spacing: 16,
+                runSpacing: 16,
+                children: [
+                  SizedBox(
+                    width: isWide
+                        ? (constraints.maxWidth - 16) / 2
+                        : constraints.maxWidth,
+                    child: CustomCard(
+                      header: const Text(
+                        'Card Title',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      body: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text('This is the content of the card.'),
+                          SizedBox(height: 8),
+                          Text('You can put any widget inside the body.'),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: isWide
+                        ? (constraints.maxWidth - 16) / 2
+                        : constraints.maxWidth,
+                    child: CustomCard(
+                      header: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Card with Actions',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          CustomDropdown(
+                            button: const Icon(Icons.more_vert),
+                            dropdownContent: Column(
+                              children: [
+                                ListTile(
+                                  leading: const Icon(Icons.edit),
+                                  title: const Text('Edit'),
+                                  onTap: () => debugPrint('Edit clicked'),
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.delete),
+                                  title: const Text('Delete'),
+                                  onTap: () => debugPrint('Delete clicked'),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      body: const Text(
+                        'This card has a dropdown button in the header.',
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
       ),
     );
   }

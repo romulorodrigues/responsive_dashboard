@@ -12,6 +12,7 @@ export 'src/widgets/top_bar.dart';
 export 'src/widgets/content_area.dart';
 export 'src/widgets/custom_dropdown.dart';
 export 'src/widgets/button_icon.dart';
+export 'src/widgets/custom_card.dart';
 
 // utils
 export 'src/utils/responsive_helper.dart';
