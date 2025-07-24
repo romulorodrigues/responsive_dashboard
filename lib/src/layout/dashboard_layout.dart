@@ -11,7 +11,8 @@ class DashboardLayout extends StatefulWidget {
   final Widget topBar;
   final List<MenuItemModel> menuItems;
   final TextStyle? sideBarSectionTextStyle;
-  final TextStyle? sideBarMenuItemTextStyle;
+  final Color? sideBarHeaderBackgroundColor;
+  final Color? sideBarBackgroundColor;
 
   const DashboardLayout({
     Key? key,
@@ -20,7 +21,8 @@ class DashboardLayout extends StatefulWidget {
     this.backgroundColor,
     required this.menuItems,
     this.sideBarSectionTextStyle,
-    this.sideBarMenuItemTextStyle,
+    this.sideBarHeaderBackgroundColor,
+    this.sideBarBackgroundColor,
   }) : super(key: key);
 
   @override
@@ -70,6 +72,9 @@ class _DashboardLayoutState extends State<DashboardLayout> {
               onToggleMenu: toggleMenu,
               onForceExpand: forceExpand,
               menuItems: widget.menuItems,
+              sectionTextStyle: widget.sideBarSectionTextStyle,
+              headerBackgroundColor: widget.sideBarHeaderBackgroundColor,
+              backgroundColor: widget.sideBarBackgroundColor,
             )
           : null,
       body: Row(
@@ -81,8 +86,9 @@ class _DashboardLayoutState extends State<DashboardLayout> {
               onToggleMenu: toggleMenu,
               onForceExpand: forceExpand,
               menuItems: widget.menuItems,
-              sideBarSectionTextStyle: widget.sideBarSectionTextStyle,
-              sideBarMenuItemTextStyle: widget.sideBarMenuItemTextStyle,
+              sectionTextStyle: widget.sideBarSectionTextStyle,
+              headerBackgroundColor: widget.sideBarHeaderBackgroundColor,
+              backgroundColor: widget.sideBarBackgroundColor,
             ),
           Expanded(
             child: Column(
