@@ -44,6 +44,9 @@ class MyApp extends StatelessWidget {
                       leading: const Icon(Icons.notifications),
                       title: Text('Notification ${index + 1}'),
                       subtitle: const Text('You have a new message'),
+                      onTap: () {
+                        print('Click ${index + 1}');
+                      },
                     ),
                   ),
                 ),
@@ -55,11 +58,29 @@ class MyApp extends StatelessWidget {
             backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=3'),
           ),
           userName: 'Rômulo Rodrigues',
-          userDropdownItems: const [
-            ListTile(leading: Icon(Icons.person), title: Text('Profile')),
-            ListTile(leading: Icon(Icons.settings), title: Text('Settings')),
-            Divider(),
-            ListTile(leading: Icon(Icons.logout), title: Text('Logout')),
+          userDropdownItems: [
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Profile'),
+              onTap: () {
+                print('Profile');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+                print('Settings');
+              },
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              onTap: () {
+                print('Logout');
+              },
+            ),
           ],
         ),
         child: const Center(child: Text('Conteúdo do Dashboard')),
