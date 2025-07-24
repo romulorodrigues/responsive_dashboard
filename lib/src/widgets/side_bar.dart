@@ -6,6 +6,8 @@ class SideBar extends StatelessWidget {
   final VoidCallback onToggleMenu;
   final VoidCallback? onForceExpand;
   final List<MenuItemModel> menuItems;
+  final TextStyle? sideBarSectionTextStyle;
+  final TextStyle? sideBarMenuItemTextStyle;
 
   const SideBar({
     super.key,
@@ -13,6 +15,8 @@ class SideBar extends StatelessWidget {
     required this.onToggleMenu,
     this.onForceExpand,
     required this.menuItems,
+    this.sideBarSectionTextStyle,
+    this.sideBarMenuItemTextStyle,
   });
 
   @override
@@ -36,15 +40,47 @@ class SideBar extends StatelessWidget {
             Expanded(
               child: ListView(
                 padding: EdgeInsets.zero,
-                children: menuItems
-                    .map((item) => _buildMenuItem(context, item))
-                    .toList(),
+                children: _buildMenuItemsGroupedBySection(context),
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  List<Widget> _buildMenuItemsGroupedBySection(BuildContext context) {
+    final Map<String?, List<MenuItemModel>> grouped = {};
+
+    for (var item in menuItems) {
+      grouped.putIfAbsent(item.section, () => []).add(item);
+    }
+
+    final List<Widget> widgets = [];
+
+    grouped.forEach((section, items) {
+      if (section != null && !isCollapsed) {
+        widgets.add(
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
+            child: Text(
+              section.toUpperCase(),
+              style: sideBarSectionTextStyle ??
+                  const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey,
+                    letterSpacing: 0.5,
+                  ),
+            ),
+          ),
+        );
+      }
+
+      widgets.addAll(items.map((item) => _buildMenuItem(context, item)));
+    });
+
+    return widgets;
   }
 
   Widget _buildMenuItem(BuildContext context, MenuItemModel item) {
@@ -54,7 +90,9 @@ class SideBar extends StatelessWidget {
         leading: Icon(item.icon),
         title: Row(
           children: [
-            if (!isCollapsed) Expanded(child: Text(item.label)),
+            if (!isCollapsed)
+              Expanded(
+                  child: Text(item.label, style: sideBarMenuItemTextStyle)),
           ],
         ),
         initiallyExpanded: item.isExpanded,
@@ -76,7 +114,9 @@ class SideBar extends StatelessWidget {
         waitDuration: const Duration(milliseconds: 300),
         child: ListTile(
           leading: Icon(item.icon),
-          title: isCollapsed ? const SizedBox.shrink() : Text(item.label),
+          title: isCollapsed
+              ? const SizedBox.shrink()
+              : Text(item.label, style: sideBarMenuItemTextStyle),
           onTap: item.onTap,
           contentPadding: const EdgeInsets.symmetric(horizontal: 16),
           minLeadingWidth: 0,

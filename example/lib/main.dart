@@ -67,11 +67,13 @@ class MyApp extends StatelessWidget {
           MenuItemModel(
             icon: Icons.dashboard,
             label: 'Dashboard',
+            section: 'Overview',
             onTap: () => debugPrint('Dashboard'),
           ),
           MenuItemModel(
             icon: Icons.analytics,
             label: 'Reports',
+            section: 'Overview',
             children: [
               MenuItemModel(
                 icon: Icons.bar_chart,
@@ -88,6 +90,7 @@ class MyApp extends StatelessWidget {
           MenuItemModel(
             icon: Icons.settings,
             label: 'Settings',
+            section: 'System',
             children: [
               MenuItemModel(
                 icon: Icons.security,
@@ -122,6 +125,7 @@ class MyApp extends StatelessWidget {
           MenuItemModel(
             icon: Icons.build,
             label: 'System Config',
+            section: 'System',
             children: [
               MenuItemModel(
                 icon: Icons.memory,
@@ -143,21 +147,25 @@ class MyApp extends StatelessWidget {
           MenuItemModel(
             icon: Icons.notifications,
             label: 'Notifications',
+            section: 'Apps',
             onTap: () => debugPrint('Notifications'),
           ),
           MenuItemModel(
             icon: Icons.calendar_today,
             label: 'Calendar',
+            section: 'Apps',
             onTap: () => debugPrint('Calendar'),
           ),
           MenuItemModel(
             icon: Icons.email,
             label: 'Messages',
+            section: 'Apps',
             onTap: () => debugPrint('Messages'),
           ),
           MenuItemModel(
             icon: Icons.help,
             label: 'Help Center',
+            section: 'Support',
             children: [
               MenuItemModel(
                 icon: Icons.book,
