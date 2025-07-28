@@ -1,7 +1,8 @@
 name: responsive_dashboard
-description: "Is a package that provides a ready-to-use, flexible, and responsive dashboard layout."
-version: 0.0.1
-homepage:
+description: A flexible and responsive dashboard layout package for Flutter, ready to use in modern applications.
+version: 1.0.0
+homepage: https://github.com/romulorodrigues/responsive_dashboard
+repository: https://github.com/romulorodrigues/responsive_dashboard
 
 environment:
   sdk: ^3.5.3
