@@ -12,6 +12,7 @@ class SideBar extends StatefulWidget {
   final double? scrollbarThickness;
   final Radius? scrollbarRadius;
   final Color? scrollbarThumbColor;
+  final Widget? headerContent;
 
   const SideBar({
     super.key,
@@ -25,6 +26,7 @@ class SideBar extends StatefulWidget {
     this.scrollbarThickness,
     this.scrollbarRadius,
     this.scrollbarThumbColor,
+    this.headerContent,
   });
 
   @override
@@ -48,6 +50,7 @@ class SideBar extends StatefulWidget {
       scrollbarThickness: scrollbarThickness,
       scrollbarRadius: scrollbarRadius,
       scrollbarThumbColor: scrollbarThumbColor,
+      headerContent: headerContent,
     );
   }
 }
@@ -76,12 +79,23 @@ class _SideBarState extends State<SideBar> {
               ),
               margin: EdgeInsets.zero,
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FlutterLogo(size: widget.isCollapsed ? 40 : 50),
-                ],
-              ),
+              child: widget.headerContent ??
+                  Row(
+                    children: [
+                      FlutterLogo(size: widget.isCollapsed ? 40 : 50),
+                      if (!widget.isCollapsed) ...[
+                        const SizedBox(width: 8),
+                        const Text(
+                          'Flutter',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
             ),
             Expanded(
               child: Container(
