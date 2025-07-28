@@ -147,21 +147,23 @@ class _TopBarState extends State<TopBar> {
                 onPressed: _showSearchOverlay,
               )
             else
-              SizedBox(
-                width: 400,
-                height: 40,
-                child: widget.searchField ??
-                    TextField(
-                      controller: _controller,
-                      onSubmitted: widget.onSearch,
-                      decoration: const InputDecoration(
-                        hintText: 'Search...',
-                        prefixIcon: Icon(Icons.search),
-                        border: OutlineInputBorder(),
-                        isDense: true,
-                        contentPadding: EdgeInsets.all(8),
+              Flexible(
+                flex: 2,
+                child: SizedBox(
+                  height: 40,
+                  child: widget.searchField ??
+                      TextField(
+                        controller: _controller,
+                        onSubmitted: widget.onSearch,
+                        decoration: const InputDecoration(
+                          hintText: 'Search...',
+                          prefixIcon: Icon(Icons.search),
+                          border: OutlineInputBorder(),
+                          isDense: true,
+                          contentPadding: EdgeInsets.all(8),
+                        ),
                       ),
-                    ),
+                ),
               ),
             const Spacer(),
             Row(

@@ -13,9 +13,10 @@ class DashboardLayout extends StatefulWidget {
   final TextStyle? sideBarSectionTextStyle;
   final Color? sideBarHeaderBackgroundColor;
   final Color? sideBarBackgroundColor;
+  final Widget? footer;
 
   const DashboardLayout({
-    Key? key,
+    super.key,
     required this.child,
     required this.topBar,
     this.backgroundColor,
@@ -23,7 +24,8 @@ class DashboardLayout extends StatefulWidget {
     this.sideBarSectionTextStyle,
     this.sideBarHeaderBackgroundColor,
     this.sideBarBackgroundColor,
-  }) : super(key: key);
+    this.footer,
+  });
 
   @override
   State<DashboardLayout> createState() => _DashboardLayoutState();
@@ -98,6 +100,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
                         .copyWith(onToggleMenu: toggleMenu)
                     : widget.topBar,
                 Expanded(child: widget.child),
+                if (widget.footer != null) widget.footer!,
               ],
             ),
           ),
