@@ -2,7 +2,7 @@
 
 A simple, flexible and responsive dashboard layout pack for Flutter, perfect for modern web and mobile admin dashboards.
 
-![Screenshot](https://github.com/romulorodrigues/responsive_dashboard/blob/main/screenshots/demo.gif)
+![Screenshot](https://raw.githubusercontent.com/romulorodrigues/responsive_dashboard/main/screenshots/demo.gif)
 
 ---
 
@@ -21,5 +21,5 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  responsive_dashboard: ^1.0.0
+  responsive_dashboard: latest version
 ```
