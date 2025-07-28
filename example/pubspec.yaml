@@ -8,6 +8,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  easy_flutter_charts: ^1.2.1
+  easy_flutter_table: ^1.0.0
   responsive_dashboard:
     path: ../
 

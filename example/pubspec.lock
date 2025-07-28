@@ -41,6 +41,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.18.0"
+  easy_flutter_charts:
+    dependency: "direct main"
+    description:
+      name: easy_flutter_charts
+      sha256: "0d3b38cfed73004d3394dbf3f85f74c8a0c2a85c6587ca52fe38bc483bab7164"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.1"
+  easy_flutter_table:
+    dependency: "direct main"
+    description:
+      name: easy_flutter_table
+      sha256: "6b4f5c45dc924d4218bb39c7d53a5e12f7ad4309a8089573699161cd0ba9fe13"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   fake_async:
     dependency: transitive
     description:
