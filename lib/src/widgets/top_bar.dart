@@ -3,47 +3,55 @@ import '../../responsive_dashboard.dart';
 
 class TopBar extends StatefulWidget {
   final Widget child;
-  final Widget? searchField;
   final ValueChanged<String>? onSearch;
   final Widget? userAvatar;
   final String? userName;
   final List<Widget>? userDropdownItems;
   final Color? hoverBackgroundColor;
   final VoidCallback? onToggleMenu;
+  final Icon? searchButtonIcon;
+  final Color? searchButtonColor;
+  final InputDecoration? searchInputDecoration;
 
-  const TopBar({
-    super.key,
-    required this.child,
-    this.searchField,
-    this.onSearch,
-    this.userAvatar,
-    this.userName,
-    this.userDropdownItems,
-    this.hoverBackgroundColor,
-    this.onToggleMenu,
-  });
+  const TopBar(
+      {super.key,
+      required this.child,
+      this.onSearch,
+      this.userAvatar,
+      this.userName,
+      this.userDropdownItems,
+      this.hoverBackgroundColor,
+      this.onToggleMenu,
+      this.searchButtonIcon,
+      this.searchButtonColor,
+      this.searchInputDecoration});
 
   @override
   State<TopBar> createState() => _TopBarState();
 
   TopBar copyWith({
     Widget? child,
-    Widget? searchField,
     ValueChanged<String>? onSearch,
     Widget? userAvatar,
     String? userName,
     List<Widget>? userDropdownItems,
     Color? hoverBackgroundColor,
     VoidCallback? onToggleMenu,
+    Icon? searchButtonIcon,
+    Color? searchButtonColor,
+    InputDecoration? searchInputDecoration,
   }) {
     return TopBar(
-      searchField: searchField ?? this.searchField,
       onSearch: onSearch ?? this.onSearch,
       userAvatar: userAvatar ?? this.userAvatar,
       userName: userName ?? this.userName,
       userDropdownItems: userDropdownItems ?? this.userDropdownItems,
       hoverBackgroundColor: hoverBackgroundColor ?? this.hoverBackgroundColor,
       onToggleMenu: onToggleMenu ?? this.onToggleMenu,
+      searchButtonIcon: searchButtonIcon ?? this.searchButtonIcon,
+      searchButtonColor: searchButtonColor ?? this.searchButtonColor,
+      searchInputDecoration:
+          searchInputDecoration ?? this.searchInputDecoration,
       child: child ?? this.child,
     );
   }
@@ -79,16 +87,35 @@ class _TopBarState extends State<TopBar> {
                   widget.onSearch?.call(value);
                   _removeSearchOverlay();
                 },
-                decoration: InputDecoration(
-                  hintText: 'Search...',
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: _removeSearchOverlay,
+                decoration: (widget.searchInputDecoration ??
+                        const InputDecoration(
+                          hintText: 'Search...',
+                          prefixIcon: Icon(Icons.search),
+                          border: OutlineInputBorder(),
+                          isDense: true,
+                          contentPadding: EdgeInsets.all(8),
+                        ))
+                    .copyWith(
+                  suffixIcon: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        tooltip: 'Send',
+                        icon: widget.searchButtonIcon ?? const Icon(Icons.send),
+                        color:
+                            widget.searchButtonColor ?? const Color(0xFF232E51),
+                        onPressed: () {
+                          widget.onSearch?.call(_controller.text);
+                          _removeSearchOverlay();
+                        },
+                      ),
+                      IconButton(
+                        tooltip: 'Close',
+                        icon: const Icon(Icons.close),
+                        onPressed: _removeSearchOverlay,
+                      ),
+                    ],
                   ),
-                  border: const OutlineInputBorder(),
-                  isDense: true,
-                  contentPadding: const EdgeInsets.all(8),
                 ),
               ),
             ),
@@ -150,18 +177,28 @@ class _TopBarState extends State<TopBar> {
                 flex: 2,
                 child: SizedBox(
                   height: 40,
-                  child: widget.searchField ??
-                      TextField(
-                        controller: _controller,
-                        onSubmitted: widget.onSearch,
-                        decoration: const InputDecoration(
+                  child: TextField(
+                    controller: _controller,
+                    onSubmitted: widget.onSearch,
+                    decoration: widget.searchInputDecoration ??
+                        InputDecoration(
                           hintText: 'Search...',
-                          prefixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(),
+                          prefixIcon: const Icon(Icons.search),
+                          suffixIcon: IconButton(
+                            tooltip: 'Send',
+                            icon: widget.searchButtonIcon ??
+                                const Icon(Icons.send),
+                            color: widget.searchButtonColor ??
+                                const Color(0xFF232E51),
+                            onPressed: () {
+                              widget.onSearch?.call(_controller.text);
+                            },
+                          ),
+                          border: const OutlineInputBorder(),
                           isDense: true,
-                          contentPadding: EdgeInsets.all(8),
+                          contentPadding: const EdgeInsets.all(8),
                         ),
-                      ),
+                  ),
                 ),
               ),
             const Spacer(),
