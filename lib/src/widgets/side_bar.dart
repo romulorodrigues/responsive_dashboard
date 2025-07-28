@@ -9,6 +9,9 @@ class SideBar extends StatelessWidget {
   final TextStyle? sectionTextStyle;
   final Color? backgroundColor;
   final Color? headerBackgroundColor;
+  final double? scrollbarThickness;
+  final Radius? scrollbarRadius;
+  final Color? scrollbarThumbColor;
 
   const SideBar({
     super.key,
@@ -19,6 +22,9 @@ class SideBar extends StatelessWidget {
     this.sectionTextStyle,
     this.backgroundColor,
     this.headerBackgroundColor,
+    this.scrollbarThickness,
+    this.scrollbarRadius,
+    this.scrollbarThumbColor,
   });
 
   @override
@@ -46,9 +52,17 @@ class SideBar extends StatelessWidget {
             Expanded(
               child: Container(
                 color: backgroundColor ?? const Color(0xFF232E51),
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: _buildMenuItemsGroupedBySection(context),
+                child: RawScrollbar(
+                  thumbVisibility: true,
+                  thickness: scrollbarThickness ?? 6,
+                  radius: scrollbarRadius ?? const Radius.circular(4),
+                  thumbColor: (scrollbarThumbColor ?? Colors.grey.shade400)
+                      .withOpacity(0.6),
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    physics: const ClampingScrollPhysics(),
+                    children: _buildMenuItemsGroupedBySection(context),
+                  ),
                 ),
               ),
             ),
@@ -78,7 +92,7 @@ class SideBar extends StatelessWidget {
                   const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xFF97aac1),
+                    color: Color(0xFF97aac1),
                     letterSpacing: 0.5,
                   ),
             ),

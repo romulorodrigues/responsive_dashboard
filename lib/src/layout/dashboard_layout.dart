@@ -13,6 +13,9 @@ class DashboardLayout extends StatefulWidget {
   final TextStyle? sideBarSectionTextStyle;
   final Color? sideBarHeaderBackgroundColor;
   final Color? sideBarBackgroundColor;
+  final double? sideBarScrollbarThickness;
+  final Radius? sideBarScrollbarRadius;
+  final Color? sideBarScrollbarThumbColor;
   final Widget? footer;
 
   const DashboardLayout({
@@ -24,6 +27,9 @@ class DashboardLayout extends StatefulWidget {
     this.sideBarSectionTextStyle,
     this.sideBarHeaderBackgroundColor,
     this.sideBarBackgroundColor,
+    this.sideBarScrollbarThickness,
+    this.sideBarScrollbarRadius,
+    this.sideBarScrollbarThumbColor,
     this.footer,
   });
 
@@ -77,6 +83,9 @@ class _DashboardLayoutState extends State<DashboardLayout> {
               sectionTextStyle: widget.sideBarSectionTextStyle,
               headerBackgroundColor: widget.sideBarHeaderBackgroundColor,
               backgroundColor: widget.sideBarBackgroundColor,
+              scrollbarThickness: widget.sideBarScrollbarThickness,
+              scrollbarRadius: widget.sideBarScrollbarRadius,
+              scrollbarThumbColor: widget.sideBarScrollbarThumbColor,
             )
           : null,
       body: Row(
@@ -91,6 +100,9 @@ class _DashboardLayoutState extends State<DashboardLayout> {
               sectionTextStyle: widget.sideBarSectionTextStyle,
               headerBackgroundColor: widget.sideBarHeaderBackgroundColor,
               backgroundColor: widget.sideBarBackgroundColor,
+              scrollbarThickness: widget.sideBarScrollbarThickness,
+              scrollbarRadius: widget.sideBarScrollbarRadius,
+              scrollbarThumbColor: widget.sideBarScrollbarThumbColor,
             ),
           Expanded(
             child: Column(

@@ -140,7 +140,6 @@ class _TopBarState extends State<TopBar> {
               },
               tooltip: 'Alternar menu',
             ),
-            const SizedBox(width: 16),
             if (isMobile)
               IconButton(
                 icon: const Icon(Icons.search),
