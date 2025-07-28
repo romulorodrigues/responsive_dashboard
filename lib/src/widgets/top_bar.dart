@@ -174,7 +174,7 @@ class _TopBarState extends State<TopBar> {
               )
             else
               Flexible(
-                flex: 2,
+                flex: 1,
                 child: SizedBox(
                   height: 40,
                   child: TextField(
