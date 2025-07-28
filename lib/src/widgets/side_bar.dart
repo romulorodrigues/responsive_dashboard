@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/menu_item_model.dart';
 
-class SideBar extends StatelessWidget {
+class SideBar extends StatefulWidget {
   final bool isCollapsed;
   final VoidCallback onToggleMenu;
   final VoidCallback? onForceExpand;
@@ -28,37 +28,53 @@ class SideBar extends StatelessWidget {
   });
 
   @override
+  State<SideBar> createState() => _SideBarState();
+}
+
+class _SideBarState extends State<SideBar> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: isCollapsed ? 80 : 250,
+      width: widget.isCollapsed ? 80 : 250,
       child: Drawer(
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-        backgroundColor: backgroundColor ?? const Color(0xFF232E51),
+        backgroundColor: widget.backgroundColor ?? const Color(0xFF232E51),
         child: Column(
           children: [
             DrawerHeader(
               decoration: BoxDecoration(
-                color: headerBackgroundColor ?? const Color(0xFF232E51),
+                color: widget.headerBackgroundColor ?? const Color(0xFF232E51),
               ),
               margin: EdgeInsets.zero,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  FlutterLogo(size: isCollapsed ? 40 : 50),
+                  FlutterLogo(size: widget.isCollapsed ? 40 : 50),
                 ],
               ),
             ),
             Expanded(
               child: Container(
-                color: backgroundColor ?? const Color(0xFF232E51),
+                color: widget.backgroundColor ?? const Color(0xFF232E51),
                 child: RawScrollbar(
+                  controller: _scrollController,
                   thumbVisibility: true,
-                  thickness: scrollbarThickness ?? 6,
-                  radius: scrollbarRadius ?? const Radius.circular(4),
-                  thumbColor: (scrollbarThumbColor ?? Colors.grey.shade400)
-                      .withOpacity(0.6),
+                  thickness: widget.scrollbarThickness ?? 6,
+                  radius: widget.scrollbarRadius ?? const Radius.circular(4),
+                  thumbColor:
+                      (widget.scrollbarThumbColor ?? Colors.grey.shade400)
+                          .withOpacity(0.6),
                   child: ListView(
+                    controller: _scrollController,
                     padding: EdgeInsets.zero,
                     physics: const ClampingScrollPhysics(),
                     children: _buildMenuItemsGroupedBySection(context),
@@ -75,20 +91,20 @@ class SideBar extends StatelessWidget {
   List<Widget> _buildMenuItemsGroupedBySection(BuildContext context) {
     final Map<String?, List<MenuItemModel>> grouped = {};
 
-    for (var item in menuItems) {
+    for (var item in widget.menuItems) {
       grouped.putIfAbsent(item.section, () => []).add(item);
     }
 
     final List<Widget> widgets = [];
 
     grouped.forEach((section, items) {
-      if (section != null && !isCollapsed) {
+      if (section != null && !widget.isCollapsed) {
         widgets.add(
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
             child: Text(
               section.toUpperCase(),
-              style: sectionTextStyle ??
+              style: widget.sectionTextStyle ??
                   const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
@@ -118,7 +134,7 @@ class SideBar extends StatelessWidget {
           ),
           title: Row(
             children: [
-              if (!isCollapsed)
+              if (!widget.isCollapsed)
                 Expanded(
                   child: Text(
                     item.label,
@@ -141,8 +157,8 @@ class SideBar extends StatelessWidget {
           childrenPadding: const EdgeInsets.only(left: 16),
           onExpansionChanged: (expanded) {
             item.isExpanded = expanded;
-            if (isCollapsed && expanded) {
-              onForceExpand?.call();
+            if (widget.isCollapsed && expanded) {
+              widget.onForceExpand?.call();
             }
           },
           children: item.children!
@@ -158,7 +174,7 @@ class SideBar extends StatelessWidget {
             item.icon,
             color: item.iconColor ?? const Color(0xFF97aac1),
           ),
-          title: isCollapsed
+          title: widget.isCollapsed
               ? const SizedBox.shrink()
               : Text(
                   item.label,
