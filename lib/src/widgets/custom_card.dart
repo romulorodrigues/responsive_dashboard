@@ -36,7 +36,7 @@ class CustomCard extends StatelessWidget {
         children: [
           if (header != null) ...[
             Padding(
-              padding: padding,
+              padding: const EdgeInsets.all(16),
               child: header,
             ),
             const Divider(height: 1, color: Color(0xFFE7E9EB)),
