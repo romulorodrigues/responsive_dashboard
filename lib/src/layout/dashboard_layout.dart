@@ -61,7 +61,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
 
     return Scaffold(
       backgroundColor: bgColor,
-      drawer: isMobile && widget.sideBar != null
+      drawer: isMobile
           ? widget.sideBar.copyWith(
               key: sidebarKey,
               isCollapsed: isCollapsed,
@@ -71,7 +71,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
           : null,
       body: Row(
         children: [
-          if (!isMobile && widget.sideBar != null)
+          if (!isMobile)
             widget.sideBar.copyWith(
               key: sidebarKey,
               isCollapsed: isCollapsed,
