@@ -3,7 +3,7 @@ import '../models/menu_item_model.dart';
 
 class SideBar extends StatefulWidget {
   final bool isCollapsed;
-  final VoidCallback onToggleMenu;
+  final VoidCallback? onToggleMenu;
   final VoidCallback? onForceExpand;
   final List<MenuItemModel> menuItems;
   final TextStyle? sectionTextStyle;
@@ -15,8 +15,8 @@ class SideBar extends StatefulWidget {
 
   const SideBar({
     super.key,
-    required this.isCollapsed,
-    required this.onToggleMenu,
+    this.isCollapsed = false,
+    this.onToggleMenu,
     this.onForceExpand,
     required this.menuItems,
     this.sectionTextStyle,
@@ -29,6 +29,27 @@ class SideBar extends StatefulWidget {
 
   @override
   State<SideBar> createState() => _SideBarState();
+
+  SideBar copyWith({
+    Key? key,
+    bool? isCollapsed,
+    VoidCallback? onToggleMenu,
+    VoidCallback? onForceExpand,
+  }) {
+    return SideBar(
+      key: key ?? this.key,
+      isCollapsed: isCollapsed ?? this.isCollapsed,
+      onToggleMenu: onToggleMenu ?? this.onToggleMenu,
+      onForceExpand: onForceExpand ?? this.onForceExpand,
+      menuItems: menuItems,
+      sectionTextStyle: sectionTextStyle,
+      backgroundColor: backgroundColor,
+      headerBackgroundColor: headerBackgroundColor,
+      scrollbarThickness: scrollbarThickness,
+      scrollbarRadius: scrollbarRadius,
+      scrollbarThumbColor: scrollbarThumbColor,
+    );
+  }
 }
 
 class _SideBarState extends State<SideBar> {

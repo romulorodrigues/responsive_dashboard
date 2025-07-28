@@ -9,27 +9,15 @@ class DashboardLayout extends StatefulWidget {
   final Widget child;
   final Color? backgroundColor;
   final Widget topBar;
-  final List<MenuItemModel> menuItems;
-  final TextStyle? sideBarSectionTextStyle;
-  final Color? sideBarHeaderBackgroundColor;
-  final Color? sideBarBackgroundColor;
-  final double? sideBarScrollbarThickness;
-  final Radius? sideBarScrollbarRadius;
-  final Color? sideBarScrollbarThumbColor;
+  final SideBar sideBar;
   final Widget? footer;
 
   const DashboardLayout({
     super.key,
     required this.child,
     required this.topBar,
+    required this.sideBar,
     this.backgroundColor,
-    required this.menuItems,
-    this.sideBarSectionTextStyle,
-    this.sideBarHeaderBackgroundColor,
-    this.sideBarBackgroundColor,
-    this.sideBarScrollbarThickness,
-    this.sideBarScrollbarRadius,
-    this.sideBarScrollbarThumbColor,
     this.footer,
   });
 
@@ -55,7 +43,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
     setState(() {
       isCollapsed = !isCollapsed;
       if (isCollapsed) {
-        collapseAllSubmenus(widget.menuItems);
+        collapseAllSubmenus(widget.sideBar.menuItems);
       }
     });
   }
@@ -73,36 +61,22 @@ class _DashboardLayoutState extends State<DashboardLayout> {
 
     return Scaffold(
       backgroundColor: bgColor,
-      drawer: isMobile
-          ? SideBar(
+      drawer: isMobile && widget.sideBar != null
+          ? widget.sideBar.copyWith(
               key: sidebarKey,
               isCollapsed: isCollapsed,
               onToggleMenu: toggleMenu,
               onForceExpand: forceExpand,
-              menuItems: widget.menuItems,
-              sectionTextStyle: widget.sideBarSectionTextStyle,
-              headerBackgroundColor: widget.sideBarHeaderBackgroundColor,
-              backgroundColor: widget.sideBarBackgroundColor,
-              scrollbarThickness: widget.sideBarScrollbarThickness,
-              scrollbarRadius: widget.sideBarScrollbarRadius,
-              scrollbarThumbColor: widget.sideBarScrollbarThumbColor,
             )
           : null,
       body: Row(
         children: [
-          if (!isMobile)
-            SideBar(
+          if (!isMobile && widget.sideBar != null)
+            widget.sideBar.copyWith(
               key: sidebarKey,
               isCollapsed: isCollapsed,
               onToggleMenu: toggleMenu,
               onForceExpand: forceExpand,
-              menuItems: widget.menuItems,
-              sectionTextStyle: widget.sideBarSectionTextStyle,
-              headerBackgroundColor: widget.sideBarHeaderBackgroundColor,
-              backgroundColor: widget.sideBarBackgroundColor,
-              scrollbarThickness: widget.sideBarScrollbarThickness,
-              scrollbarRadius: widget.sideBarScrollbarRadius,
-              scrollbarThumbColor: widget.sideBarScrollbarThumbColor,
             ),
           Expanded(
             child: Column(
