@@ -70,7 +70,9 @@ class _MyAppState extends State<MyApp> {
           ),
           userAvatar: const CircleAvatar(
             radius: 20,
-            backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=3'),
+            backgroundImage: NetworkImage(
+                'https://api.dicebear.com/7.x/adventurer/png?seed=John',
+                scale: 1.0),
           ),
           userName: 'Rômulo Rodrigues',
           userDropdownItems: [

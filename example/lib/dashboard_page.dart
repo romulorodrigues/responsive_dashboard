@@ -122,7 +122,7 @@ class _DashboardPageState extends State<DashboardPage> {
           final double maxWidth = constraints.maxWidth;
           int columns = 1;
           if (maxWidth >= 1200) {
-            columns = 3;
+            columns = 2;
           } else if (maxWidth >= 800) {
             columns = 2;
           }
@@ -145,33 +145,14 @@ class _DashboardPageState extends State<DashboardPage> {
                   )
                 ],
               ),
-              // SizedBox(
-              //   width: cardWidth,
-              //   child: CustomCard(
-              //     margin: EdgeInsets.all(0),
-              //     header: const Text(
-              //       'Card Title',
-              //       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              //     ),
-              //     body: Column(
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: const [
-              //         Text(
-              //             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et accumsan nibh. Ut at elementum mi. Praesent eu nisi ut dui fringilla tincidunt. In in facilisis erat. Fusce tempor dolor nec mauris pulvinar venenatis. Donec sagittis lorem ac sem iaculis pellentesque. Ut tincidunt posuere purus. Sed mauris massa, dapibus ac aliquam sit amet, posuere sit amet elit.'),
-              //         const SizedBox(
-              //           height: 8,
-              //         ),
-              //         Text(
-              //             'Aenean ac ullamcorper leo. Nam fermentum venenatis blandit. Duis venenatis, neque eget tincidunt suscipit, elit metus efficitur dolor, et tincidunt arcu massa eget felis. Donec mollis porttitor massa vel blandit. Sed ut dapibus ante. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse potenti.'),
-              //       ],
-              //     ),
-              //   ),
-              // ),
               SizedBox(
                 width: cardWidth,
                 child: CustomCard(
                   margin: EdgeInsets.all(0),
-                  padding: EdgeInsets.all(30),
+                  header: const Text(
+                    'Data 1',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
                   body: Center(
                     child: SizedBox(
                       height: 400,
@@ -208,13 +189,13 @@ class _DashboardPageState extends State<DashboardPage> {
                 child: CustomCard(
                     margin: EdgeInsets.all(0),
                     header: const Text(
-                      'Data',
+                      'Data 2',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     body: Center(
                       child: SizedBox(
-                        height: 350,
+                        height: 400,
                         width: 600,
                         child: LineChart(
                           title: 'Temperatura Diária',
@@ -266,43 +247,14 @@ class _DashboardPageState extends State<DashboardPage> {
                             'Segunda',
                             'Terça',
                             ['Quarta', 'feira'],
+                            ['Quinta', 'feira'],
+                            ['Sexta', 'feira']
                           ],
                           // lineTooltipBuilder: (serie, point) =>
                           //     '${serie.name}: ${point.label}: ${point.value} °C',
                         ),
                       ),
                     )),
-              ),
-              SizedBox(
-                width: cardWidth,
-                child: CustomCard(
-                  margin: EdgeInsets.all(0),
-                  header: const Text(
-                    'Data',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  body: Center(
-                    child: RadialBarChart(
-                      data: [
-                        RadialBarData(
-                            value: 40, color: Colors.blue, label: 'Azul'),
-                        RadialBarData(
-                            value: 30, color: Colors.green, label: 'Verde'),
-                        RadialBarData(
-                            value: 20, color: Colors.orange, label: 'Laranja'),
-                        RadialBarData(
-                            value: 60, color: Colors.red, label: 'Vermelho'),
-                      ],
-                      centerTextBuilder: (data) =>
-                          '${data.label}\n${data.value} unidades',
-                      centerTextStyle: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      aspectRatio: 1.5,
-                    ),
-                  ),
-                ),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
