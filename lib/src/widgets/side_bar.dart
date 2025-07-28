@@ -144,20 +144,65 @@ class _SideBarState extends State<SideBar> {
   }
 
   Widget _buildMenuItem(BuildContext context, MenuItemModel item) {
-    if (item.hasChildren) {
+    if (widget.isCollapsed) {
       return Tooltip(
         message: item.label,
-        child: ExpansionTile(
-          key: ValueKey('${item.label}_${item.isExpanded}'),
-          leading: Icon(
-            item.icon,
-            color: item.iconColor ?? const Color(0xFF97aac1),
-          ),
-          title: Row(
-            children: [
-              if (!widget.isCollapsed)
-                Expanded(
-                  child: Text(
+        child: _buildMenuTile(item),
+      );
+    } else {
+      return _buildMenuTile(item);
+    }
+  }
+
+  Widget _buildMenuTile(MenuItemModel item) {
+    return item.hasChildren
+        ? ExpansionTile(
+            key: ValueKey('${item.label}_${item.isExpanded}'),
+            leading: Icon(
+              item.icon,
+              color: item.iconColor ?? const Color(0xFF97aac1),
+            ),
+            title: Row(
+              children: [
+                if (!widget.isCollapsed)
+                  Expanded(
+                    child: Text(
+                      item.label,
+                      style: item.textStyle ??
+                          const TextStyle(
+                            fontSize: 14,
+                            color: Color(0xFF97aac1),
+                            letterSpacing: 0.5,
+                          ),
+                    ),
+                  ),
+              ],
+            ),
+            trailing: Icon(
+              item.isExpanded ? Icons.expand_less : Icons.expand_more,
+              color: item.arrowColor ?? const Color(0xFF97aac1),
+            ),
+            initiallyExpanded: item.isExpanded,
+            tilePadding: const EdgeInsets.symmetric(horizontal: 16),
+            childrenPadding: const EdgeInsets.only(left: 16),
+            onExpansionChanged: (expanded) {
+              item.isExpanded = expanded;
+              if (widget.isCollapsed && expanded) {
+                widget.onForceExpand?.call();
+              }
+            },
+            children: item.children!
+                .map((child) => _buildMenuItem(context, child))
+                .toList(),
+          )
+        : ListTile(
+            leading: Icon(
+              item.icon,
+              color: item.iconColor ?? const Color(0xFF97aac1),
+            ),
+            title: widget.isCollapsed
+                ? const SizedBox.shrink()
+                : Text(
                     item.label,
                     style: item.textStyle ??
                         const TextStyle(
@@ -166,51 +211,9 @@ class _SideBarState extends State<SideBar> {
                           letterSpacing: 0.5,
                         ),
                   ),
-                ),
-            ],
-          ),
-          trailing: Icon(
-            item.isExpanded ? Icons.expand_less : Icons.expand_more,
-            color: item.arrowColor ?? const Color(0xFF97aac1),
-          ),
-          initiallyExpanded: item.isExpanded,
-          tilePadding: const EdgeInsets.symmetric(horizontal: 16),
-          childrenPadding: const EdgeInsets.only(left: 16),
-          onExpansionChanged: (expanded) {
-            item.isExpanded = expanded;
-            if (widget.isCollapsed && expanded) {
-              widget.onForceExpand?.call();
-            }
-          },
-          children: item.children!
-              .map((child) => _buildMenuItem(context, child))
-              .toList(),
-        ),
-      );
-    } else {
-      return Tooltip(
-        message: item.label,
-        child: ListTile(
-          leading: Icon(
-            item.icon,
-            color: item.iconColor ?? const Color(0xFF97aac1),
-          ),
-          title: widget.isCollapsed
-              ? const SizedBox.shrink()
-              : Text(
-                  item.label,
-                  style: item.textStyle ??
-                      const TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFF97aac1),
-                        letterSpacing: 0.5,
-                      ),
-                ),
-          onTap: item.onTap,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-          minLeadingWidth: 0,
-        ),
-      );
-    }
+            onTap: item.onTap,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+            minLeadingWidth: 0,
+          );
   }
 }
