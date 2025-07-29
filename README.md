@@ -23,3 +23,6 @@ Add this to your `pubspec.yaml`:
 dependencies:
   responsive_dashboard: latest version
 ```
+
+🧪 Example
+A complete working example is available in the /example directory.
