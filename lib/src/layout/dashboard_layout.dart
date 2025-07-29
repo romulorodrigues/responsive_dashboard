@@ -79,15 +79,17 @@ class _DashboardLayoutState extends State<DashboardLayout> {
               onForceExpand: forceExpand,
             ),
           Expanded(
-            child: Column(
-              children: [
-                widget.topBar is TopBar
-                    ? (widget.topBar as TopBar)
-                        .copyWith(onToggleMenu: toggleMenu)
-                    : widget.topBar,
-                Expanded(child: widget.child),
-                if (widget.footer != null) widget.footer!,
-              ],
+            child: SafeArea(
+              child: Column(
+                children: [
+                  widget.topBar is TopBar
+                      ? (widget.topBar as TopBar)
+                          .copyWith(onToggleMenu: toggleMenu)
+                      : widget.topBar,
+                  Expanded(child: widget.child),
+                  if (widget.footer != null) widget.footer!,
+                ],
+              ),
             ),
           ),
         ],
