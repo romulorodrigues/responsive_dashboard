@@ -24,5 +24,6 @@ dependencies:
   responsive_dashboard: latest version
 ```
 
-🧪 Example
+## 🧪 Example
+
 A complete working example is available in the /example directory.
