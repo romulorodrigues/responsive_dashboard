@@ -72,7 +72,7 @@ class _TopBarState extends State<TopBar> {
       builder: (context) => Positioned(
         left: 0,
         right: 0,
-        top: 70,
+        top: MediaQuery.of(context).padding.top + 70,
         child: Material(
           elevation: 8,
           color: Colors.white,
